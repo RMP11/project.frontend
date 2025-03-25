@@ -1,0 +1,44 @@
+:root {}
+
+/* semantic color variables for this project */
+:root {
+  --primary-color: #007bff; /* Color principal */
+
+  --p-surface-0: #ffffff;
+  --p-surface-50: var(--p-slate-50);
+  --p-surface-100: var(--p-slate-100);
+  --p-surface-200: var(--p-slate-200);
+  --p-surface-300: var(--p-slate-300);
+  --p-surface-400: var(--p-slate-400);
+  --p-surface-500: var(--p-slate-500);
+  --p-surface-600: var(--p-slate-600);
+  --p-surface-700: var(--p-slate-700);
+  --p-surface-800: var(--p-slate-800);
+  --p-surface-900: var(--p-slate-900);
+  --p-surface-950: var(--p-slate-950);
+  /* --color-background: var(--vt-c-white);
+  --color-background-soft: var(--vt-c-white-soft);
+  --color-background-mute: var(--vt-c-white-mute);
+
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  --section-gap: 160px; */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --color-background: var(--vt-c-black);
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2); */
+  }
+}
