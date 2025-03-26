@@ -38,7 +38,7 @@ function mostrarMensajes(response: AxiosResponse) {
   if (status < 300) {
     if (status === 201) toast?.add({ severity: 'success', summary: 'REGISTRO CREADO', life: 5000 })
     if (status === 200 && ['put', 'patch'].includes(method ?? ''))
-      toast?.add({ severity: 'success', summary: 'REGISTRO CREADO', life: 5000 })
+      toast?.add({ severity: 'success', summary: 'REGISTRO ACTUALIZADO', life: 5000 })
     return
   }
 
