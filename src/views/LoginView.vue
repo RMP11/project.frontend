@@ -19,9 +19,9 @@ async function iniciarSesion() {
   const axiosResponse = await axiosCustom.post('auth/login', credenciales).catch(() => null)
   isLoading.value = false
 
-  if (!axiosResponse) return
+  if (!axiosResponse?.data?.accessToken) return
 
-  localStorage.setItem('token', axiosResponse.data.token)
+  localStorage.setItem('token', axiosResponse.data.accessToken)
 
   router.push('/')
 }
@@ -32,13 +32,7 @@ async function iniciarSesion() {
     class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden"
   >
     <div class="flex flex-col items-center justify-center">
-      <div
-        style="
-          border-radius: 56px;
-          padding: 0.3rem;
-          background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
-        "
-      >
+      <div class="p-[0.3rem] border-gradient">
         <div
           class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20"
           style="border-radius: 53px"
@@ -101,5 +95,10 @@ async function iniciarSesion() {
 .pi-eye-slash {
   transform: scale(1.6);
   margin-right: 1rem;
+}
+
+.border-gradient {
+  border-radius: 56px;
+  background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
 }
 </style>
