@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { ProductService } from './productService'
 import { axiosCustom } from '@/config/axiosCustom'
 
-onMounted(() => {
-  ProductService.getProducts().then((data) => (products.value = data))
-})
-
 const dt = ref()
-const products = ref()
 const permisoDialog = ref(false)
 const eliminarPermisoDialog = ref(false)
 const permiso = ref<{ id?: number; nombre?: string }>({})
