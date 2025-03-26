@@ -1,6 +1,7 @@
 import AppAutenticadoView from '@/views/AppAutenticadoView.vue'
 import HomeView from '@/views/HomeView.vue'
 import PermisosView from '@/views/PermisosView.vue'
+import RolesView from '@/views/RolesView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -19,6 +20,11 @@ const router = createRouter({
           path: 'permisos',
           name: 'permisos',
           component: PermisosView,
+        },
+        {
+          path: 'roles',
+          name: 'roles',
+          component: RolesView,
         },
       ],
     },
