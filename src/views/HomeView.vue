@@ -1,9 +1,8 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="flex flex-col justify-center gap-3 items-center w-full h-full">
+    <h1 class="text-7xl font-bold">Bienvenidos</h1>
+    <h2 class="text-5xl font-medium text-center">Sistema de Gestión de Artículos</h2>
+  </div>
 </template>
