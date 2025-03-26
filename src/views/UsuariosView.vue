@@ -99,7 +99,7 @@ onMounted(() => {
         :loading="isLoading"
       >
         <template #header>
-          <h4 class="m-0 font-bold">Usuarios</h4>
+          <h4 class="m-0 font-bold">USUARIOS</h4>
         </template>
 
         <Column header="Nro" style="width: 0rem" class="text-center">
