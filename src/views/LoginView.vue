@@ -23,7 +23,7 @@ async function iniciarSesion() {
 
   localStorage.setItem('token', axiosResponse.data.accessToken)
 
-  router.push('/')
+  router.push('admin')
 }
 </script>
 
@@ -80,6 +80,12 @@ async function iniciarSesion() {
               :loading="isLoading"
             ></Button>
           </form>
+          <Button
+            label="Ir a Publicaciones"
+            text
+            class="w-full mt-2"
+            @click="$router.push('/')"
+          ></Button>
         </div>
       </div>
     </div>

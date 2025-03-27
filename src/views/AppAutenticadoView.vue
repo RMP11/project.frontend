@@ -5,10 +5,10 @@ import { RouterLink, RouterView } from 'vue-router'
 const sidebarVisible = ref(false)
 
 const menuItems = ref([
-  { label: 'Inicio', icon: 'mdi mdi-home', to: '/' },
-  { label: 'Permisos', icon: 'mdi mdi-order-bool-ascending-variant', to: 'permisos' },
-  { label: 'Roles', icon: 'mdi mdi-account-settings', to: 'roles' },
-  { label: 'Usuarios', icon: 'mdi mdi-account-group', to: 'usuarios' },
+  { label: 'Inicio', icon: 'mdi mdi-home', to: '/admin' },
+  { label: 'Permisos', icon: 'mdi mdi-order-bool-ascending-variant', to: '/admin/permisos' },
+  { label: 'Roles', icon: 'mdi mdi-account-settings', to: '/admin/roles' },
+  { label: 'Usuarios', icon: 'mdi mdi-account-group', to: '/admin/usuarios' },
 ])
 
 const toggleSidebar = () => {
@@ -32,7 +32,7 @@ const socialLinks = [
         </button>
       </template>
       <template #end>
-        <span class="text-gray-700">Usuario</span>
+        <Button @click="$router.push('/')">Ver Publicaciones</Button>
       </template>
     </Menubar>
 
