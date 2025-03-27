@@ -1,6 +1,7 @@
 import AppAutenticadoView from '@/views/AppAutenticadoView.vue'
 import HomeView from '@/views/HomeView.vue'
 import PermisosView from '@/views/PermisosView.vue'
+import PublicacionesView from '@/views/PublicacionesView.vue'
 import RolesView from '@/views/RolesView.vue'
 import UsuariosView from '@/views/UsuariosView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -10,10 +11,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'publicaciones',
+      component: PublicacionesView,
+    },
+    {
+      path: '/admin',
       component: AppAutenticadoView,
       children: [
         {
-          path: '/',
+          path: '',
           name: 'home',
           component: HomeView,
         },
