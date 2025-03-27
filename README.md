@@ -4,6 +4,8 @@
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
+## Require node 22 o superior
+
 ## Configuración del proyecto
 
 ```sh
@@ -21,3 +23,9 @@ yarn dev
 ```sh
 yarn build
 ```
+
+### Usuario Para iniciar sesión
+
+correo: `admin@fake.com`
+
+contrasena: `123456`
