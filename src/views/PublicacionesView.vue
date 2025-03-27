@@ -21,6 +21,11 @@ async function getPublicaciones() {
   isLoading.value = false
 }
 
+const socialLinks = [
+  { icon: 'mdi mdi-facebook', url: 'https://facebook.com' },
+  { icon: 'mdi mdi-twitter', url: 'https://twitter.com' },
+  { icon: 'mdi mdi-instagram', url: 'https://instagram.com' },
+]
 onMounted(() => {
   getPublicaciones().then()
 })
@@ -49,6 +54,27 @@ onMounted(() => {
         </template>
       </Card>
     </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+      <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+        <p class="text-sm">
+          &copy; {{ new Date().getFullYear() }} Mi Sitio. Todos los derechos reservados.
+        </p>
+
+        <div class="flex space-x-4">
+          <a
+            v-for="social in socialLinks"
+            :key="social.icon"
+            :href="social.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-lg hover:text-blue-400"
+          >
+            <i :class="social.icon"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
