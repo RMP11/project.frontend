@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { axiosCustom } from '@/config/axiosCustom'
+import type { Permiso, Rol } from '@/interfaces/types'
 
 const dt = ref()
 const rolDialog = ref(false)
 const eliminarRolDialog = ref(false)
+const permisosDialog = ref(false)
 const rol = ref<{ id?: number; nombre?: string }>({})
 
 const enviado = ref(false)
@@ -44,18 +46,67 @@ async function guardarRol() {
   getRoles().then()
 }
 
-const editProduct = (rolParam) => {
+const editProduct = (rolParam: Rol) => {
   rol.value = { ...rolParam }
   rolDialog.value = true
 }
 
-const confirmarEliminarRol = (rolParam) => {
+const asignaciones = ref<{ rolId?: number; permiso: Permiso; valor: boolean }[]>([])
+
+const abrirAsignarPermisos = (rolParam: Rol) => {
+  asignaciones.value = permisos.value.map((p) => {
+    const rolPermiso = rolParam.rolesPermisos.find((rp) => rp.permisoId === p.id)
+    return { permiso: p, rolId: rolParam?.id, valor: !!rolPermiso }
+  })
+  permisosDialog.value = true
+}
+
+async function asignar(asignacion: (typeof asignaciones.value)[0]) {
+  const resultado = (
+    await axiosCustom.post(`roles/${asignacion.rolId}/permisos`, {
+      permisoId: asignacion.permiso.id,
+    })
+  ).data
+
+  if (!resultado) {
+    asignacion.valor = !asignacion.valor
+    return
+  }
+
+  const rolEncontrado = roles.value.find((rol) => rol.id === asignacion.rolId)
+
+  if (!rolEncontrado) return
+
+  const rolesPermiso = rolEncontrado.rolesPermisos.find(
+    (rp) => rp.permisoId === asignacion.permiso.id,
+  )
+
+  if (rolesPermiso && !asignacion.valor) {
+    rolesPermiso.permisoId = undefined
+  } else {
+    rolEncontrado.rolesPermisos.push({
+      createdAt: '',
+      updatedAt: '',
+      deletedAt: '',
+      rolId: asignacion?.rolId,
+      permisoId: asignacion.permiso.id,
+      permiso: { ...asignacion.permiso },
+    })
+  }
+}
+
+const confirmarEliminarRol = (rolParam: Rol) => {
   rol.value = rolParam
   eliminarRolDialog.value = true
 }
 
+const permisos = ref<Permiso[]>([])
+async function getPermisos() {
+  permisos.value = (await axiosCustom.get('permisos').catch(() => ({ data: [] }))).data
+}
+
 const isLoading = ref()
-const roles = ref([])
+const roles = ref<Rol[]>([])
 
 async function getRoles() {
   isLoading.value = true
@@ -77,6 +128,7 @@ async function eliminar() {
 
 onMounted(() => {
   getRoles()
+  getPermisos()
 })
 </script>
 
@@ -123,13 +175,25 @@ onMounted(() => {
         <Column style="width: 8rem">
           <template #body="slotProps">
             <Button
+              title="Editar"
               icon="mdi mdi-pencil"
               outlined
               rounded
               class="mr-2"
               @click="editProduct(slotProps.data)"
             />
+
             <Button
+              title="Asignar Permisos"
+              icon="mdi mdi-order-bool-ascending-variant"
+              outlined
+              rounded
+              class="mr-2"
+              @click="abrirAsignarPermisos(slotProps.data)"
+            />
+
+            <Button
+              title="Eliminar"
               icon="mdi mdi-trash-can-outline"
               outlined
               rounded
@@ -202,6 +266,30 @@ onMounted(() => {
         />
         <Button label="Si" icon="mdi mdi-check" :loading="estaGuardandoLoading" @click="eliminar" />
       </template>
+    </Dialog>
+
+    <Dialog
+      v-model:visible="permisosDialog"
+      :style="{ width: '450px' }"
+      header="Permisos"
+      :modal="true"
+      :draggable="false"
+    >
+      <div class="flex flex-col gap-3 mx-5">
+        <div
+          v-for="asignacion in asignaciones"
+          :key="asignacion.permiso.id"
+          class="flex items-center gap-2"
+        >
+          <Checkbox
+            v-model="asignacion.valor"
+            binary
+            :inputId="asignacion.permiso.id.toString()"
+            @update:model-value="asignar(asignacion)"
+          />
+          <label :for="asignacion.permiso.id.toString()"> {{ asignacion.permiso.nombre }} </label>
+        </div>
+      </div>
     </Dialog>
   </div>
 </template>
