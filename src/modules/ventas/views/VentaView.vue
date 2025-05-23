@@ -3,6 +3,7 @@
 import { ProductosService } from '@/modules/productos/services/productos.service'
 import { SucursalesService } from '@/modules/sucursales/services/sucursales.services'
 import { computed, ref } from 'vue'
+import { VentasService } from '../services/ventas.service'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const productos = ref<any>([])
@@ -36,6 +37,28 @@ const total = computed(() => {
     return prev + actual.precioUnitario * actual.cantidad
   }, 0)
 })
+
+const cliente = ref('')
+
+function realizarVenta() {
+  // detalleVenta.value
+  const venta = {
+    cliente: cliente.value,
+    total: total.value,
+    descuento: 0,
+    sucursalId: sucursal.value,
+    ventaDetalles: detalleVenta.value,
+  }
+  const respuesta = VentasService.registrar(venta)
+
+  if (!respuesta) return
+
+  detalleVenta.value = []
+  visible.value = false
+  cliente.value = ''
+}
+
+const visible = ref(false)
 </script>
 
 <template>
@@ -61,7 +84,14 @@ const total = computed(() => {
         class="w-full"
       />
 
-      <Button label="Realizar Venta" />
+      <Button
+        label="Realizar Venta"
+        @click="
+          () => {
+            visible = true
+          }
+        "
+      />
 
       <div
         v-for="(detalleItem, index) in detalleVenta"
@@ -90,6 +120,17 @@ const total = computed(() => {
       <strong>Total: {{ total }}</strong>
     </div>
   </div>
+
+  <Dialog v-model:visible="visible" modal header="Edit Profile" :style="{ width: '25rem' }">
+    <div class="flex items-center gap-4 mb-4">
+      <label for="cliente" class="font-semibold w-24">Nombre del cliente</label>
+      <InputText id="cliente" v-model="cliente" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex justify-end gap-2">
+      <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+      <Button type="button" label="Guardar" @click="realizarVenta"></Button>
+    </div>
+  </Dialog>
 </template>
 
 <style scoped></style>
