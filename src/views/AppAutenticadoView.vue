@@ -9,6 +9,7 @@ const menuItems = ref([
   { label: 'Permisos', icon: 'mdi mdi-order-bool-ascending-variant', to: '/admin/permisos' },
   { label: 'Roles', icon: 'mdi mdi-account-settings', to: '/admin/roles' },
   { label: 'Usuarios', icon: 'mdi mdi-account-group', to: '/admin/usuarios' },
+  { label: 'Ventas', icon: 'mdi mdi-account-credit-card', to: '/admin/ventas' },
 ])
 
 const toggleSidebar = () => {
