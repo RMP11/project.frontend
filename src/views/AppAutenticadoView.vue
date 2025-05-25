@@ -9,6 +9,7 @@ const menuItems = ref([
   { label: 'Permisos', icon: 'mdi mdi-order-bool-ascending-variant', to: '/admin/permisos' },
   { label: 'Roles', icon: 'mdi mdi-account-settings', to: '/admin/roles' },
   { label: 'Usuarios', icon: 'mdi mdi-account-group', to: '/admin/usuarios' },
+  { label: 'Vender', icon: 'mdi mdi-account-credit-card', to: '/admin/vender' },
   { label: 'Ventas', icon: 'mdi mdi-account-credit-card', to: '/admin/ventas' },
 ])
 

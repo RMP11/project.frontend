@@ -1,4 +1,5 @@
-import VentaView from '@/modules/ventas/views/VentaView.vue'
+import VenderView from '@/modules/ventas/views/VenderView.vue'
+import VentasView from '@/modules/ventas/views/VentasView.vue'
 import AppAutenticadoView from '@/views/AppAutenticadoView.vue'
 import HomeView from '@/views/HomeView.vue'
 import PermisosView from '@/views/PermisosView.vue'
@@ -40,9 +41,14 @@ const router = createRouter({
           component: UsuariosView,
         },
         {
+          path: 'Vender',
+          name: 'Vender',
+          component: VenderView,
+        },
+        {
           path: 'ventas',
           name: 'ventas',
-          component: VentaView,
+          component: VentasView,
         },
       ],
     },

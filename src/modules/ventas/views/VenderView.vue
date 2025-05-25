@@ -40,8 +40,7 @@ const total = computed(() => {
 
 const cliente = ref('')
 
-function realizarVenta() {
-  // detalleVenta.value
+async function realizarVenta() {
   const venta = {
     cliente: cliente.value,
     total: total.value,
@@ -49,7 +48,7 @@ function realizarVenta() {
     sucursalId: sucursal.value,
     ventaDetalles: detalleVenta.value,
   }
-  const respuesta = VentasService.registrar(venta)
+  const respuesta = await VentasService.registrar(venta)
 
   if (!respuesta) return
 
@@ -107,7 +106,6 @@ const visible = ref(false)
           <div class="">
             Cantidad:
             <input
-              size="small"
               v-model="detalleItem.cantidad"
               type="number"
               class="border-[1px] rounded-lg w-[5rem]"
@@ -121,7 +119,7 @@ const visible = ref(false)
     </div>
   </div>
 
-  <Dialog v-model:visible="visible" modal header="Edit Profile" :style="{ width: '25rem' }">
+  <Dialog v-model:visible="visible" modal header="Vender" :style="{ width: '25rem' }">
     <div class="flex items-center gap-4 mb-4">
       <label for="cliente" class="font-semibold w-24">Nombre del cliente</label>
       <InputText id="cliente" v-model="cliente" class="flex-auto" autocomplete="off" />
